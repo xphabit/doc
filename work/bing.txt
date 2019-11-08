@@ -1,0 +1,67 @@
+[X] Device
+===============================================================================
+Printer: \\sha-fs-01a\printer\BJW
+
+[X] Word
+===============================================================================
+> DWC = A framework, Data Warehouse Controller
+  DWC is infrastructure for managing multiple interdependent recurring distributed processes in a data warehouse. Each process is implemented using Windows Workflow Foundation (WF) workflow. DWC is designed to manage hundreds of such workflows running in parallel, and their interdependencies. 
+> CFR = Customer Facing Report for CFR which includes consumption summary of the Contract
+> UET = Universal Event Tracking
+  Universal Event Tracking (UET) is a simple and powerful campaign management solution that allows advertisers to track key conversion goals important to their business. 
+
+> Conversion - Zoey Wu (guwu@microsoft.com)
+> AML/Demand/Auction/AMLPrime/Apollo - Marc Tao (hontao@microsoft.com)
+> Monetization - Minzhe Lu (minzlu@microsoft.com)
+> General feature ask - Han Che (hanch@microsoft.com)
+> DRI support: saft@microsoft.com 
+
+
+[X] New Hire
+===============================================================================
+[+] Setting Your Rig Up
+
+
+
+
+[X] Document
+===============================================================================
+https://msasg.visualstudio.com/Shared%20Data/_wiki/wikis/Shared%20Data.wiki?wikiVersion=GBwikiMaster&pagePath=%2FNon%252Dmonetization%20Ads%20Data%2FNew%20Hire%20Guide%2FStreaming%20Knowledge&pageId=41563
+cosmos: https://microsoft.sharepoint.com/teams/Cosmos/ScopeTutorial/Forms/AllItems.aspx
+Cepos: https://msasg.visualstudio.com/Shared%20Data/_git/CepOrchestration/?path=%2FREADME.md&version=GBmaster
+	  https://msasg.visualstudio.com/DefaultCollection/Shared%20Data/_git/CepOrchestration?path=%2Fprivate%2Fsrc%2FDocumentation%2FCepos-Overview.md&version=GBusers%2Fniyer%2Fdocs-CeposOverview
+Ad Docs: http://adsdocs/zh-cn/documentation/index
+
+[X]
+===============================================================================
+From: Fuzhou Chen 
+Sent: Wednesday, December 12, 2018 2:05 AM
+To: Qi Zhao (BING) <qizhao@microsoft.com>
+Subject: Conversion : content to start with
+
+Hi Qi,
+Below is a brief list of useful content you may start from Conversion and Spark. Actually, most contents are from : \\stcasia\root\Share\Ads\saft\brownbag and \\stcasia\root\Share\Ads\saft\SubjectAreaWeeklySharing
+
+Besides the content, you may need some more face to face help to understand how current infrastructure is designed. I have told Wenshuang (our expert on streaming pipeline infrastructure) as a heads-up, but I will let you decide when is the best time. 😊
+
+
+Thanks,
+Fuzhou
+
+Part 1: Conversion pipeline:
+•	Conversion pipeline ramp up: \\stcasia\root\Share\Ads\saft\brownbag\UET Conversions Part Deux By Bill.mp4
+•	Conversion pipeline Slide: \\stcasia\root\Share\Ads\saft\brownbag\UET Conversions Part Deux.pptx
+•	USQL-streaming: \\stcasia\root\Share\Ads\saft\SubjectAreaWeeklySharing\20160803_USQL Streaming_Michelle.mp4
+•	UET (input of Conversion pipeline) introduction: \\stcasia\root\Share\Ads\saft\SubjectAreaWeeklySharing\20160112_UET Introduction_Bill.mp4
+•	Code base: https://msasg.visualstudio.com/DefaultCollection/Shared%20Data//_git/Ads.BI.SubjectAreas?path=%2Fprivate%2FPipelines%2FConversion&version=GBmaster
+•	Tommy's previous talk on running Spark in Azure for AuctionNAF pipeline: \\stcasia\root\Share\Ads\saft\brownbag\Tommy Tan - Saft Spark PoC Demo - 2018-10-11.mp4
+•	Team onenote: http://vstfsharepoint/sites/adsgroup/Search/Documents/CoreTeams/BI/DWS/Subject%20Areas/SubjectAreas/ 
+
+Spark:
+•	Official website: http://spark.apache.org/ 
+•	Good book: Learning Spark (You can read it for free from Safari Queue app in iPhone or from browser https://www.safaribooksonline.com/accounts/login/. O'reilly allows we logon with Microsoft Corpnet account).
+
+The second part: batch pipeline, mostly unrelated to conversion but recommend a brief understanding:
+•	Demand pipeline: \\stcasia\root\Share\Ads\saft\SubjectAreaWeeklySharing\20151016_Demand Pipeline_Qi.mp4
+•	AML pipeline: \\stcasia\root\Share\Ads\saft\SubjectAreaWeeklySharing\20160427_AML Introduction_Tommy.mp4
+

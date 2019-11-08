@@ -1,0 +1,57 @@
+[X] Query Statement
+====================================================================
+
+[+] EXTRACT
+
+> Even a single file will be split into parts which then are processed in parallel.
+> Extraction from compressed data <= 4G
+
+> Extract_Expression :=
+  'EXTRACT' Column_Definition_List
+  Extract_From_Clause
+  USING_Clause.  >> IExtractor
+
+DECLARE @file_set_path string = @dir + "vehicle{vid}_{date:MM}{date:dd}{date:yyyy}.csv";
+@searchlog = // Only extracts top 10 records by Start date
+ EXTRACT
+  UserId          int,
+  Start           DateTime,
+  Region          string,
+  Query           string,
+  Duration        int,
+  Urls            string,
+  ClickedUrls     string?,
+ FROM file_set_path
+ USING Extractors.Csv()
+ ORDER BY Start DESC FETCH 10 ROWS;
+
+OUTPUT @searchlog
+TO "/ReferenceGuide/QSE/Extract/SearchLog_extracted.txt"
+USING Outputters.Tsv();
+
+[+] User-Defined Extractor
+ public class SampleExtractor : IExtractor {
+  private Encoding _encoding;
+  private byte[] _row_delim;
+  private char _col_delim;
+
+  public SampleExtractor(Encoding encoding, string row_delim = "\r\n", char col_delim = '\t') {
+   this._encoding = ((encoding == null) ? Encoding.UTF8 : encoding);
+   this._row_delim = this._encoding.GetBytes(row_delim);
+   this._col_delim = col_delim;
+  }
+
+  public override IEnumerable<IRow> Extract(IUnstructuredReader input, IUpdatableRow output)
+
+@drivers =
+    EXTRACT id string,
+            first_name string,
+            last_name string,
+            address string,
+            city string,
+            region string,
+            zipcode string,
+            country string,
+            phone_numbers string
+    FROM "/Samples/Data/AmbulanceData/Drivers.txt"
+    USING new ReferenceGuide_Examples.SampleExtractor(Encoding.Unicode);

@@ -1,0 +1,7 @@
+[X] Git bash
+===============================================================================
+[+] cd D: < Change the disk
+[+] mkdir temp < Create a directory
+[+] pwd < Show the current directory
+[+] cd git < Change directory
+[+] ls -l < List 

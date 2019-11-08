@@ -1,0 +1,47 @@
+[X] Video
+====================================================================
+https://v.youku.com/v_show/id_XMzMyNjUwNjQyOA==.html?spm=a2h0j.11185381.listitem_page1.5!12~A
+https://www.cnblogs.com/LHWorldBlog/p/8435423.html
+https://v.youku.com/v_show/id_XNDAwNDQxMzkyMA==.html?spm=a2h0k.11417342.soresults.dtitle
+https://www.cnblogs.com/LHWorldBlog/p/8432210.html
+
+
+
+[X] Hadoop
+====================================================================
+[+] Hadoop framework include the following modules:
+> Hadoop Common
+> Hadoop File System
+> Hadoop YARN
+> Hadoop MapReduce
+
+> Ambari
+> Avro
+> Cassandra
+> Hive
+> Pig
+> Oozie
+> Flume
+> Sqoop
+
+
+
+[X] Spark
+====================================================================
+[+] Setup Environment Windows
+https://www.cnblogs.com/cuiocean/p/7630529.html
+
+[+] RDD = Distrbuted Data Set
+> Create RDD
+> Transformation <Rule> + Action <Execute>
+> Patition
+> RDD.persist()
+> collect() = All data is in one machine. So not do it on large data
+> map, filter
+
+
+
+[X] Spark Stream
+====================================================================
+[+] DStream
+[+] Output Operator

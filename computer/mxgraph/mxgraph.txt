@@ -1,0 +1,164 @@
+https://www.cnblogs.com/CoffeeHome/p/3530109.html
+github Hy101911
+
+[X] mxGraph
+===================================================================
+> graph.setPanning(true); // 右键移动容器坐标轴
+> mxEvent.disableContextMenu(container); // 禁用浏览器默认的右键菜单栏
+> graph.setVertexLabelsMovable(true); // 允许移动 Vertex 的 Label
+> graph.setCellsResizable(false); // 禁止改变元素大小
+> graph.setAllowLoops(true); // 允许连线的目标和源是同一元素
+
+[X] mxView
+===================================================================
+> graph.view.scaleAndTranslate(0.15, 0, 0);
+
+[X] mxCell
+===================================================================
+[+] graph.refresh() >> isCellVisible
+> graph.isCellVisible = function(cell) { return mxGraph.prototype.isCellVisible.apply(this, arguments) && <My setting>; }
+> graph.toggleCells(!graph.getModel().isVisible(v1), [v1], true);
+
+> removed = graph.removeCells([v1]);
+> graph.addCells(removed);
+
+
+[X] mxCellRenderer
+===================================================================
+
+
+[X] Guides
+===================================================================
+> mxGraphHandler.prototype.guidesEnabled = true; // Enable guides
+> mxConstants.GUIDE_COLOR = '#00FF00';// Change guides line color
+
+[X] Hello World
+===================================================================
+var graph = new mxGraph(container);
+// Gets the default parent for inserting new cells. This is normally the first child of the root (ie. layer 0).
+var parent = graph.getDefaultParent();
+// Use mouse to draw a selection region
+new mxRubberband(graph);
+graph.getModel().beginUpdate(); 
+try { // Adds cells to the model in a single step
+  var v1 = graph.insertVertex(parent, null, 'Hello,', 20, 20, 80, 30, 'strokeColor=red;');
+  var v2 = graph.insertVertex(parent, null, 'World!', 200, 150, 80, 30);
+  var e1 = graph.insertEdge(parent, null, '', v1, v2);
+} finally { // Updates the display
+  graph.getModel().endUpdate();
+}
+
+[X] parseXml
+===============================================================================
+var doc = mxUtils.parseXml(xml); 
+this.editor.setGraphXml(doc.documentElement);
+this.editor.setModified(false);
+this.editor.undoManager.clear();
+
+[X] Stylesheet & Style
+===============================================================================
+[+] getDefaultVertexStyle
+var vertexStyle = graph.getStylesheet().getDefaultVertexStyle();
+vertexStyle[mxConstants.ROUNDED] = true;
+
+[+] getDefaultEdgeStyle
+var edgeStyle = graph.getStylesheet().getDefaultEdgeStyle();
+edgeStyle[mxConstants.STYLE_EDGE] = mxEdgeStyle.TopToBottom;
+
+[+] stylename;|key=value;
+> Use the given named styles and override the specified key
+> For example, use the "rounded" style and override the stroke- and fillColor
+> Clear font color
+   rounded;strokeColor=red;fillColor=green;fontColor=none;
+
+> var style = {};// 声明一个object
+  style = mxUtils.clone(style); // 克隆一个object
+  style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_LABEL; // 不设置这个属性，背景图片不出来
+  style[mxConstants.STYLE_STROKECOLOR] = '#999999';// 边框颜色
+  style[mxConstants.STYLE_STROKEWIDTH] = 10; // 边框大小
+  style[mxConstants.STYLE_FONTCOLOR] = '#FFFF00';// 字体颜色
+  style[mxConstants.STYLE_ALIGN] = mxConstants.ALIGN_CENTER; // 文字水平方式
+  style[mxConstants.STYLE_VERTICAL_ALIGN] = mxConstants.ALIGN_BOTTOM;// 文字垂直对齐
+  style[mxConstants.STYLE_FONTSIZE] = 30; // 字体大小
+  style[mxConstants.STYLE_IMAGE_ALIGN] = mxConstants.ALIGN_CENTER; // 底图水平对齐
+  style[mxConstants.STYLE_IMAGE_VERTICAL_ALIGN] = mxConstants.ALIGN_CENTER; // 底图垂直对齐
+  //style[mxConstants.STYLE_IMAGE] = 'images/icons48/gear.png';// 图片路径
+        style[mxConstants.STYLE_IMAGE] = 'http://imgstatic.baidu.com/img/image/shouye/qizhi0822.jpg';
+  style[mxConstants.STYLE_IMAGE_WIDTH] = 150; // 背景图片宽
+        // 背景图片高
+        style[mxConstants.STYLE_IMAGE_HEIGHT] = 200;
+        // 上间距设置
+        // 即使下边定义了全局设置，但这里单独设置上边间距仍单独有效
+        style[mxConstants.STYLE_SPACING_TOP] = 30;
+        // 四边间距设置
+        style[mxConstants.STYLE_SPACING] = 10;
+        // 把定义好的样式object push到stylesheet
+        graph.getStylesheet().putCellStyle("style1", style);
+        //样式使用
+　　     var v1 = graph.insertVertex(parent, null, "text1", 50, 50, 200, 200, "style1"); 
+
+
+[X] mxCellOverlay
+===============================================================================
+复制代码
+        // 开启提示
+        graph.setTooltips(true);
+
+        // 移出报警
+        var delOverlay = function(id){
+            // 获取ID单元
+            var cell = graph.getModel().getCell(id);
+            // 修改有报警物体的样式
+            graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, "#CCCCCC", [cell]);
+            graph.setCellStyles(mxConstants.STYLE_FONTCOLOR, "#000000", [cell]);
+            // 移除告警
+            graph.removeCellOverlays(cell);
+        };
+
+        // 给物体添加报警
+        var addOverlay = function(id, state){
+            // 获取ID单元
+            var cell = graph.getModel().getCell(id);
+            // 修改有报警物体的样式
+            graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, "#FF0000", [cell]);
+            graph.setCellStyles(mxConstants.STYLE_FONTCOLOR, "#FFFFFF", [cell]);
+            // 添加告警
+            graph.addCellOverlay(cell, createOverlay(graph.warningImage, '状态: '+state));
+        };
+
+        // 创建告警信息
+        var createOverlay = function(image, tooltip){
+            //function mxCellOverlay(image,tooltip,align,verticalAlign,offset,cursor)
+            //image图片，tooltip提示，align位置，verticalAlign竖直位置
+            var overlay = new mxCellOverlay(image, tooltip);
+            overlay.addListener(mxEvent.CLICK, function(sender, evt){
+                mxUtils.alert(tooltip);
+            });            
+            return overlay;
+        };
+		
+		
+3.4 添加按钮
+复制代码
+        // 添加按钮
+        document.body.appendChild(mxUtils.button('修改背景颜色', function(evt){
+            // Alaer
+            mxUtils.alert("Oh! You will Click me!!");
+            // 获取单元    
+            var cell = graph.getModel().getCell(v1.id);
+            // 修改样式
+            graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, "#000000", [cell]);
+            graph.setCellStyles(mxConstants.STYLE_FONTCOLOR, "#FFFFFF", [cell]);
+        }));
+
+        // 添加按钮
+        document.body.appendChild(mxUtils.button('还原背景颜色', function(evt){
+            // 获取单元    
+            var cell = graph.getModel().getCell(v1.id);
+            // 获取默认样式
+            var style = graph.getStylesheet().getDefaultVertexStyle();
+            // 还原默认样式
+            for(var i in mxConstants){
+                graph.setCellStyles(mxConstants[i], style[mxConstants[i]], [cell]);
+            }
+        }));
